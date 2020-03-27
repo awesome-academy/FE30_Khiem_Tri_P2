@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { BreadCrum, ListTheme, ListImg } from '../mixin/mixin'
+import React from 'react';
 import { formatter, checkInclude, displayStar } from '../mixin/mixin'
 import { useSelector } from 'react-redux';
-import { getData, updateUser } from '../../database/db'
+import { updateUser } from '../../database/db'
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { addtoCart, updateOneCart, getUserCart } from '../../action/action'
@@ -32,7 +31,7 @@ const SameItem = (props) => {
         dispatch(updateOneCart(item.id))
         dispatch(getUserCart(user.cart))
         sessionStorage.setItem('userData', JSON.stringify(user))
-        const add = await updateUser(user)
+        await updateUser(user)
         alert(t('Đã cập nhật'))
       }
     }
@@ -46,7 +45,7 @@ const SameItem = (props) => {
     user.cart = [...user.cart, item]
     dispatch(addtoCart(item))
     sessionStorage.setItem('userData', JSON.stringify(user))
-    const add = await updateUser(user)
+    await updateUser(user)
     alert(t('Đã thêm vào giỏi hàng'))
   }
 

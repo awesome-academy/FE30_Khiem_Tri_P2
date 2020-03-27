@@ -1,8 +1,6 @@
-import React from 'react';
-import { Tittle_part, Togle, ListNew, formatter, displayStar } from '../mixin/mixin'
-import * as img__Arr from '../../img/index'
+import React, { useState } from 'react';
+import { TittlePart, Togle, ListNew, upPage, downPage } from '../mixin/mixin'
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { ProductLast } from '../mixin/mixin'
 
 
@@ -10,8 +8,8 @@ const Lastest = (props) => {
 
   const { t } = useTranslation();
   const { new_theme, items, add } = props
-  const dispatch = useDispatch()
-
+  const [num1, setNum1] = useState(0)
+  const [num2, setNum2] = useState(4)
 
   return (
     <React.Fragment>
@@ -19,13 +17,13 @@ const Lastest = (props) => {
         <div className="container">
           <div className="row">
             <div className="title__last">
-              <Tittle_part text={t('common.lasest')} />
+              <TittlePart text={t('common.lasest')} />
               <ListNew items={new_theme}></ListNew>
-              <Togle></Togle>
+              <Togle up={() => upPage(num1, num2, setNum1, setNum2, items, 4)} down={() => downPage(num1, num2, setNum1, setNum2, items, 4)}></Togle>
             </div>
           </div>
           <div className="row">
-            <ProductLast items={items} add={add} />
+            <ProductLast items={items.slice(num1, num2)} add={add} />
           </div>
         </div>
       </section>

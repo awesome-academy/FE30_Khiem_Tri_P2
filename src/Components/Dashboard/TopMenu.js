@@ -4,20 +4,15 @@ import logoutImg from '../../img/logout.svg';
 var Boolean = false;
 
 function contentDb(left, width) {
-  document.querySelector('.menu-dashboard').style.left = left;
-  for(let i = 0 ; i < document.getElementsByClassName("content-dashboard").length;i++) {
-    document.getElementsByClassName("content-dashboard")[i].style.flex = '0 0 '+width;
-    document.getElementsByClassName("content-dashboard")[i].style.maxWidth = width;
-  }
+  document.querySelector('.menu-dashboard').style.display = left;
   Boolean=!Boolean
 }
-
 function showAdmin() {
   if (Boolean) {
-    contentDb("-22%","100%")
+    contentDb("none","100%")
   }
   else {
-    contentDb("0","80%")
+    contentDb("block","80%")
   }
 }
 

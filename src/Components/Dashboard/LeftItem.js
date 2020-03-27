@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import avatarImg from '../../img/admin-ui.svg';
 import { useTranslation } from 'react-i18next';
 import { Link } from "react-router-dom";

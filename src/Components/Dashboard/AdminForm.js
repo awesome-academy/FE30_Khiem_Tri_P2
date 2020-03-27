@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import avatarImg from '../../img/admin-ui.svg';
-import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next';
-import { updateUser } from '../../database/db'
+import { updateUser, getAdmin } from '../../database/db'
 
 const AdminForm = (props) => {
 
-  const user = JSON.parse(sessionStorage.getItem('userData'))
-  const [User, setUser] = useState(user || Object)
+  const [User, setUser] = useState(Object)
   const [confirm, setConfirm] = useState("")
   const { t } = useTranslation();
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const get = async () => {
+      const us = await getAdmin()
+      setUser(us)
+    }
+    get()
+  }, [dispatch])
 
   const handleChange = (e) => {
     const target = e.target;
@@ -33,9 +41,9 @@ const AdminForm = (props) => {
   }
   const update = async (user) => {
     if (window.confirm(t('dashboard.warning.1'))) {
-      const up = await updateUser(user)
+      await updateUser(user)
       alert(t('dashboard.warning.3'))
-      sessionStorage.setItem('userData', JSON.stringify(user))
+      sessionStorage.setItem('userData', JSON.stringify(user.username))
       window.location.reload();
     }
   }
@@ -45,8 +53,8 @@ const AdminForm = (props) => {
       <div className="content-dashboard-profile">
         <div className="content-dashboard-profile-left">
           <div className="content-dashboard-profile-left__infor">
-            <h1>{user.name || t('dashboard.form.1')}</h1>
-            <p>{user.addrres}</p>
+            <h1>{User.name || t('dashboard.form.1')}</h1>
+            <p>{User.addrres}</p>
           </div>
           <div className="content-dashboard-profile-left__avatar"><img src={avatarImg} alt="a" /></div>
         </div>

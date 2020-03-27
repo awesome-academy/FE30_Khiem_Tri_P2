@@ -332,9 +332,33 @@ header .menu__user ul li:hover a {
   padding-left: 15px;
   padding-right: 15px;
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.main__menu .menu__hide .menu__ul {
+  display: none;
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+.main__menu .menu__hide .menu__ul ul {
+  list-style: none;
+}
+.main__menu .menu__hide .menu__ul ul li {
+  padding: 1.3rem;
+}
+.main__menu .menu__hide .menu__ul ul li a {
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  width: 100%;
+}
+.main__menu .menu__hide .menu__ul ul li:hover {
+  background-color: #f5bd10;
 }
 .main__menu .menu__hide .nav__menu .span__menu {
   padding: 1.3rem;
+  cursor: pointer;
 }
 .main__menu .menu__hide .nav__menu .span__menu span {
   display: block;
@@ -342,27 +366,6 @@ header .menu__user ul li:hover a {
   width: 16px;
   background: white;
   margin: 3px 0;
-}
-.main__menu .menu__hide .nav__menu:hover .menu__ul {
-  display: block;
-  max-width: 400%;
-}
-.main__menu .menu__hide .nav__menu .menu__ul {
-  display: none;
-}
-.main__menu .menu__hide .nav__menu .menu__ul ul {
-  list-style: none;
-}
-.main__menu .menu__hide .nav__menu .menu__ul ul li {
-  padding: 1.3rem;
-}
-.main__menu .menu__hide .nav__menu .menu__ul ul li a {
-  text-decoration: none;
-  color: white;
-  font-size: 16px;
-}
-.main__menu .menu__hide .nav__menu .menu__ul ul li:hover {
-  background-color: #f5bd10;
 }
 @media (min-width: 992px) {
   .main__menu .menu__list {
@@ -435,6 +438,12 @@ header .menu__user ul li:hover a {
   z-index: 12;
   box-sizing: border-box;
 }
+@media (max-width: 768px) {
+  .modal-box-content {
+    height: 80%;
+    overflow: auto;
+  }
+}
 .modal-box-content__close {
   font-size: 20px;
   cursor: pointer;
@@ -449,11 +458,19 @@ header .menu__user ul li:hover a {
   width: 90%;
   margin: 20px auto;
   display: flex;
+  flex-wrap: wrap;
   box-sizing: border-box;
   min-height: 400px;
 }
 .modal-box-content-form-left {
-  width: 35%;
+  flex: 0 0 30%;
+  max-width: 30%;
+}
+@media (max-width: 768px) {
+  .modal-box-content-form-left {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
 .modal-box-content-form-left-block {
   width: 100%;
@@ -504,13 +521,20 @@ header .menu__user ul li:hover a {
   height: 100%;
 }
 .modal-box-content-form-right {
-  width: 60%;
+  flex: 0 0 65%;
+  max-width: 65%;
   height: auto;
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.04);
   border-radius: 8px;
   padding-top: 30px;
   margin-left: auto;
+}
+@media (max-width: 768px) {
+  .modal-box-content-form-right {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
 .modal-box-content-form-right.-form {
   display: block;
@@ -520,7 +544,7 @@ header .menu__user ul li:hover a {
   overflow: auto;
 }
 .modal-box-content-form-right.-table {
-  display: none;
+  display: block;
 }
 .modal-box-content-form-right.-table table {
   border-spacing: 0;
@@ -639,6 +663,11 @@ header .menu__user ul li:hover a {
   line-height: 60px;
   transition: 0.2s ease;
 }
+@media (max-width: 768px) {
+  .modal-box-content-form-right__content .input-container label {
+    font-size: 12px;
+  }
+}
 .modal-box-content-form-right__content .input-container .bar {
   position: absolute;
   left: 0;
@@ -662,6 +691,7 @@ header .menu__user ul li:hover a {
 }
 .modal-box-content-form-right__bottom {
   margin-top: 15px;
+  text-align: center;
 }
 .modal-box-content-form-right__bottom input[type=submit] {
   outline: none;
@@ -820,7 +850,7 @@ header .menu__user ul li:hover a {
   .product__last:last-child .img__last {
     flex: 0 0 100%;
     max-width: 100%;
-    margin: auto 0;
+    margin: auto;
     text-align: center;
   }
   .product__last:last-child .text__last {
@@ -831,6 +861,10 @@ header .menu__user ul li:hover a {
 .product__last .img__last {
   flex: 0 0 50%;
   max-width: 50%;
+  margin: auto;
+}
+.product__last .img__last img {
+  max-width: 229px;
 }
 .product__last .text__last {
   flex: 0 0 50%;
@@ -905,8 +939,12 @@ header .menu__user ul li:hover a {
   }
 }
 .product__item .item__img {
-  margin: auto 0px;
+  margin: auto;
   text-align: center;
+  height: 195px;
+}
+.product__item .item__img img {
+  max-width: 229px;
 }
 .product__item .item__info {
   text-align: center;
@@ -1651,6 +1689,9 @@ header .menu__user ul li:hover a {
   .hot .product__item:nth-child(3) {
     display: none;
   }
+}
+.hot .product__item:nth-child(3) .item__img {
+  height: auto;
 }
 .hot .product__item:nth-child(3) .item__img img {
   height: 400px;
@@ -3328,16 +3369,21 @@ footer .bonus__foot .bonus__text ul li a {
 }
 
 .menu-dashboard {
+  display: none;
   width: 20%;
   height: 561px;
   border-right: 1px solid grey;
   box-shadow: 0px 10px 15px 5px black;
   position: fixed;
   top: 60px;
-  left: -22%;
   z-index: 999;
   background-color: white;
   transition: all 0.4s;
+}
+@media (max-width: 768px) {
+  .menu-dashboard {
+    width: 100%;
+  }
 }
 .menu-dashboard-top {
   width: 100%;
@@ -3462,10 +3508,23 @@ footer .bonus__foot .bonus__text ul li a {
   background-color: #0689b4;
   cursor: pointer;
 }
+@media (max-width: 768px) {
+  .content-dashboard .search-form {
+    margin-left: 0;
+    transform: translateX(0%);
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 10%;
+    width: 80%;
+  }
+  .content-dashboard .search-form input {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
 .content-dashboard .table-scroll {
   max-height: 259px;
   overflow: auto;
-  overflow-x: hidden;
 }
 .content-dashboard .table-scroll .content-dashboard-table {
   width: 100%;
@@ -3480,6 +3539,11 @@ footer .bonus__foot .bonus__text ul li a {
   font-size: 20px;
   transition: 0.4s;
   cursor: pointer;
+}
+@media (max-width: 768px) {
+  .content-dashboard .table-scroll .content-dashboard-table tr {
+    font-size: 12px;
+  }
 }
 .content-dashboard .table-scroll .content-dashboard-table tr:first-child:hover {
   background-color: transparent;
@@ -3541,15 +3605,28 @@ footer .bonus__foot .bonus__text ul li a {
   margin: 0 auto;
   margin-top: 50px;
   display: flex;
+  flex-wrap: wrap;
+}
+@media (max-width: 768px) {
+  .content-dashboard-profile {
+    width: 100%;
+  }
 }
 .content-dashboard-profile-left {
-  width: 35%;
+  flex: 0 0 35%;
+  max-width: 35%;
   height: 150px;
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.04);
   display: flex;
   border-radius: 8px;
   padding-top: 30px;
+}
+@media (max-width: 768px) {
+  .content-dashboard-profile-left {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
 .content-dashboard-profile-left.-products {
   height: 400px;
@@ -3620,13 +3697,20 @@ footer .bonus__foot .bonus__text ul li a {
   opacity: 0.5;
 }
 .content-dashboard-profile-right {
-  width: 60%;
+  flex: 0 0 60%;
+  max-width: 60%;
   height: auto;
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.04);
   border-radius: 8px;
   padding-top: 30px;
   margin-left: auto;
+}
+@media (max-width: 768px) {
+  .content-dashboard-profile-right {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
 .content-dashboard-profile-right.-products {
   height: 350px;
@@ -3721,7 +3805,8 @@ footer .bonus__foot .bonus__text ul li a {
 .content-dashboard-profile-right__bottom {
   margin-top: 15px;
   margin-left: 10px;
-  display: inline-block;
+  display: block;
+  text-align: center;
 }
 .content-dashboard-profile-right__bottom button {
   outline: none;
@@ -3768,6 +3853,13 @@ footer .bonus__foot .bonus__text ul li a {
   box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
   border-width: 0;
 }
+@media (max-width: 768px) {
+  .total {
+    flex: 0 0 80%;
+    max-width: 80%;
+    margin: 1% 10%;
+  }
+}
 .total:nth-child(1) {
   background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
   color: #fff;
@@ -3789,6 +3881,11 @@ footer .bonus__foot .bonus__text ul li a {
   margin-left: auto;
   font-size: 30px;
 }
+@media (max-width: 768px) {
+  .total .number {
+    font-size: 20px;
+  }
+}
 
 .chart {
   margin-left: 20%;
@@ -3799,6 +3896,13 @@ footer .bonus__foot .bonus__text ul li a {
   padding-right: 15px;
   width: 100%;
   padding-top: 2rem;
+}
+@media (max-width: 768px) {
+  .chart {
+    margin-left: 0;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
 .chart .text__chart {
   font-size: 32px;

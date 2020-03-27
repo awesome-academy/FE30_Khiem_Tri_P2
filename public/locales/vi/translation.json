@@ -121,7 +121,9 @@
   },
   "grid": {
     "orderBy": "Sắp xếp theo:",
-    "show": "Show:"
+    "show": "Show:",
+    "first": "Trang Đầu",
+    "last": "Trang cuối"
   },
   "login": {
     "title": "THÔNG TIN ĐĂNG NHẬP",
@@ -145,7 +147,8 @@
       "phone": "SĐT chỉ có thể nhập số",
       "confirmPass": "Mật khẩu không trùng khớp",
       "accountExist": "Tài khoản của bạn đã tồn tại",
-      "success": "Đăng kí thành công"
+      "success": "Đăng kí thành công",
+      "same": "Mật khẩu và username không nên trùng nhau"
     },
     "title1": "THÔNG TIN CÁ NHÂN",
     "name": "Họ và tên",
@@ -177,6 +180,9 @@
     "1": "Profile",
     "2": "The information can be edited",
     "3": "Lịch sử giỏ hàng",
+    "4": "Thay đổi mật khẩu",
+    "5": "Change Password",
+    "6": "The password can be edited",
     "stt": "Order Ref",
     "date": "Date",
     "total": "Total",

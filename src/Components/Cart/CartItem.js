@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import * as img__Arr from '../../img/index'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { formatter } from '../mixin/mixin'
 import { DeleteCart, UpdateQuantity } from '../../action/action'
@@ -20,8 +19,7 @@ const CartItem = (props) => {
     e.preventDefault()
     user.cart = cart.filter((dele) => dele.id !== item.id)
     dispatch(DeleteCart(item.id))
-    sessionStorage.setItem('userData', JSON.stringify(user))
-    const add = await updateUser(user)
+    await updateUser(user)
     alert(t('cart.warning.2'))
   }
 
@@ -31,8 +29,7 @@ const CartItem = (props) => {
     setAmount({ ...amount, [name]: value });
     user.cart = cart.map((item) => item.id === id ? { ...item, quantity: value } : item)
     dispatch(UpdateQuantity(id, value))
-    sessionStorage.setItem('userData', JSON.stringify(user))
-    const add = await updateUser(user)
+    await updateUser(user)
   }
 
 

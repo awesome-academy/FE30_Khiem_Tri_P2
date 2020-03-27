@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BreadCrum } from '../mixin/mixin'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 import { formatter, TotalMoney, TotalQuan } from '../mixin/mixin'
 import { removeCart } from '../../action/action'
-import { updateHistory, getData, updatePro, updateUser } from '../../database/db'
+import { updateHistory, updatePro, updateUser } from '../../database/db'
 
 
 const Order = () => {
@@ -28,7 +28,7 @@ const Order = () => {
   }
 
   const UpdateHistory = async (cart, user) => {
-    let history = new Object()
+    let history = Object
     history = {
       cart: cart,
       username: user.username,
@@ -47,7 +47,7 @@ const Order = () => {
         price: item.price,
         votes: item.votes,
         countRate: item.countRate,
-        bought: item.bought + 1,
+        bought: item.bought + TotalQuan(cart),
         timeActive: (new Date()).getTime(),
         category: item.category,
         addNewDate: item.addNewDate
@@ -70,7 +70,7 @@ const Order = () => {
       sumPro: user.sumPro + TotalQuan(cart),
       sumPay: user.sumPay + TotalMoney(cart) + TotalMoney(cart) / 10
     }
-    sessionStorage.setItem('userData', JSON.stringify(upU))
+    sessionStorage.setItem('userData', JSON.stringify(upU.username))
     await updateUser(upU)
   }
 
@@ -101,7 +101,7 @@ const Order = () => {
       </React.Fragment>
     )
   }
-  else {
+  else if (user !== null) {
     return (
       <React.Fragment>
         <BreadCrum path="Xác nhận" />
@@ -117,6 +117,20 @@ const Order = () => {
                   <Link className="-right" to="/">{t('button.back')}</Link>
                 </div>
               </form>
+            </div>
+          </div>
+        </section>
+      </React.Fragment>
+    )
+  }
+  else {
+    return (
+      <React.Fragment>
+        <section className="main__user" style={{ display: 'flex' }}>
+          <div className="login__text" style={{ margin: 'auto' }}>
+            <h2 style={{ textAlign: 'center' }}>{t('cart.warning.1')}</h2>
+            <div className="item__button" >
+              <Link to="/login" className="-right">{t('button.login')}</Link>
             </div>
           </div>
         </section>

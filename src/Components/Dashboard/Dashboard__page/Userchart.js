@@ -5,7 +5,6 @@ import { optionsUser } from '../../../database/datatext'
 const UserChart = (props) => {
 
   const { tit, items } = props
-  let CanvasJS = CanvasJSReact.CanvasJS;
   let CanvasJSChart = CanvasJSReact.CanvasJSChart;
   const [Data, setData] = useState([])
   const [Data1, setData1] = useState([])

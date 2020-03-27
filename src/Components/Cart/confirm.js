@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BreadCrum } from '../mixin/mixin'
-import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
-import { formatter, TotalMoney, TotalQuan } from '../mixin/mixin'
 
 
 const Confirm = () => {
 
   const { t } = useTranslation();
-
 
   return (
     <React.Fragment>

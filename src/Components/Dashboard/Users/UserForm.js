@@ -5,14 +5,11 @@ import { useTranslation } from 'react-i18next';
 import { updateUser } from '../../../database/db'
 import { formatter } from '../../mixin/mixin'
 
-const UserForm = (props) => {
+const UserForm = () => {
 
   const user = useSelector(state => state.user)
   const [User, setUser] = useState(user || Object)
-  const [confirm, setConfirm] = useState("")
   const { t } = useTranslation();
-  const [sumPay, setPay] = useState(0)
-
 
   useEffect(() => {
     setUser(user)
@@ -25,14 +22,11 @@ const UserForm = (props) => {
   }
 
   const handleConfirm = () => {
-    if (!User.name || !User.mail || !User.phone || !User.addrres || !User.username || !User.password || !confirm) {
+    if (!User.name || !User.mail || !User.phone || !User.addrres || !User.username) {
       alert(t('register.warning.fill'))
     }
     else if (!checkPhone(User.phone)) {
       alert(t('register.warning.phone'))
-    }
-    else if (User.password !== confirm) {
-      alert(t('register.warning.confirmPass'))
     }
     else {
       update(User)
@@ -41,7 +35,7 @@ const UserForm = (props) => {
   }
   const update = async (user) => {
     if (window.confirm(t('dashboard.warning.1'))) {
-      const up = await updateUser(user)
+      await updateUser(user)
       alert(t('dashboard.warning.3'))
       window.location.reload();
     }
@@ -85,17 +79,7 @@ const UserForm = (props) => {
               <div className="bar"></div>
             </div>
             <div className="input-container"><input type="text" required="required"
-              value={User.password || ""} name="password" onChange={handleChange} /><label
-              >{t('dashboard.form.8')}</label>
-              <div className="bar"></div>
-            </div>
-            <div className="input-container"><input type="text" required="required"
-              value={confirm || ""} name="mail" onChange={(e) => setConfirm(e.target.value)} /><label
-              >{t('dashboard.form.9')}</label>
-              <div className="bar"></div>
-            </div>
-            <div className="input-container"><input type="text" required="required"
-              value={User.sumPro} name="sumPro" onChange={e => e.preventDefault()} /><label
+              value={User.sumPro || ""} name="sumPro" onChange={e => e.preventDefault()} /><label
               >{t('dashboard.form.11')}</label>
               <div className="bar"></div>
             </div>

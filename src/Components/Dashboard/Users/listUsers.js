@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 import { getUserData } from '../../../action/action.js'
 import { deleteUser } from '../../../database/db'
@@ -14,7 +14,7 @@ const GetListUser = (props) => {
 
   const handleDelete = async (user) => {
     if (window.confirm(t('dashboard.warning.1'))) {
-      const up = await deleteUser(user)
+      await deleteUser(user)
       alert(t('dashboard.warning.2'))
       window.location.reload();
     }

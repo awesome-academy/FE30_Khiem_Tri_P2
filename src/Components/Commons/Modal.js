@@ -6,6 +6,7 @@ import { getUserData } from '../../action/action'
 import { useDispatch } from 'react-redux';
 import UserForm from './userForm';
 import TableForm from './tableForm'
+import Password from './password'
 
 
 function hideModal() {
@@ -15,24 +16,27 @@ function hideModal() {
 }
 
 const checkPhone = (phone) => {
-  Boolean = true
+  let bool = true
   for (let index in phone) {
     let a = parseInt(phone[index])
     if (isNaN(a)) {
-      Boolean = false;
+      bool = false;
       break;
     }
   }
-  return Boolean
+  return bool
 }
 
 const ModalBox = (props) => {
   const { t } = useTranslation();
   const [user, setUser] = useState(props.user)
   const [carts, setCarts] = useState([])
-  const [confirm, setConfirm] = useState(props.user.password);
+  const [confirm, setConfirm] = useState("");
+  const [newPass, setNew] = useState("")
+  const [pass, setPass] = useState("")
   const dispatch = useDispatch();
-  let checkTab = true;
+  const [checkTab, setCheck] = useState(1)
+
 
   useEffect(() => {
     const GetCarts = async () => {
@@ -53,30 +57,44 @@ const ModalBox = (props) => {
     if (!checkPhone(user.phone)) {
       alert(t('register.warning.phone'))
     }
-    else if (user.password !== confirm) {
+    else if (user.password !== pass) {
       alert(t('register.warning.confirmPass'))
     }
     else {
-      const update = await updateUser(user)
+      await updateUser(user)
       dispatch(getUserData(user))
-      sessionStorage.setItem('userData', JSON.stringify(user))
-      alert(t('register.warning.success'))
+      alert(t('dashboard.warning.3'))
+      window.location.reload()
     }
   }
 
-  const switchTab = (bool) => {
-    checkTab = bool;
-    if (checkTab) {
-      document.querySelector('.-form').style.display = "block";
-      document.querySelector('.-table').style.display = "none";
-      document.querySelector('.modal-box-content-form-left-block__tab:nth-child(1)').classList.add('-active');
-      document.querySelector('.modal-box-content-form-left-block__tab:nth-child(2)').classList.remove('-active');
-    } else {
-      document.querySelector('.-form').style.display = "none";
-      document.querySelector('.-table').style.display = "table";
-      document.querySelector('.modal-box-content-form-left-block__tab:nth-child(1)').classList.remove('-active');
-      document.querySelector('.modal-box-content-form-left-block__tab:nth-child(2)').classList.add('-active');
+  const submitPass = async (e) => {
+    e.preventDefault()
+    if (newPass !== confirm) {
+      alert(t('register.warning.confirmPass'))
     }
+    else if (user.password !== pass) {
+      alert(t('register.warning.confirmPass'))
+    }
+    else if (newPass === user.username) {
+      alert(t('register.warning.same'))
+    }
+    else {
+      user.password = confirm
+      await updateUser(user)
+      dispatch(getUserData(user))
+      alert(t('dashboard.warning.3'))
+      window.location.reload()
+    }
+  }
+
+  const switchTab = (checkTab) => {
+    if (checkTab === 1) {
+      return <UserForm submitHandler={submitHandler} user={user} setPass={setPass} handleChange={handleChange} pass={pass} />
+    } else if (checkTab === 2) {
+      return <TableForm carts={carts} />
+    }
+    else return <Password pass={pass} setPass={setPass} newPass={newPass} setNew={setNew} confirm={confirm} setConfirm={setConfirm} submitPass={submitPass} />
   }
 
   return (
@@ -94,12 +112,29 @@ const ModalBox = (props) => {
                 <div className="modal-box-content-form-left-block__avatar"><img src={avatarUser} alt="a" /></div>
               </div>
               <div className="modal-box-content-form-left-block">
-                <p className="modal-box-content-form-left-block__tab -active" onClick={() => switchTab(true)}>{t('user.1')}</p>
-                <p className="modal-box-content-form-left-block__tab" onClick={() => switchTab(false)}>{t('user.3')}</p>
+                <p className="modal-box-content-form-left-block__tab -active" onClick={() => {
+                  setCheck(1)
+                  document.querySelector('.modal-box-content-form-left-block__tab:nth-child(1)').classList.add('-active');
+                  document.querySelector('.modal-box-content-form-left-block__tab:nth-child(2)').classList.remove('-active');
+                  document.querySelector('.modal-box-content-form-left-block__tab:nth-child(3)').classList.remove('-active');
+
+                }}>{t('user.1')}</p>
+                <p className="modal-box-content-form-left-block__tab" onClick={() => {
+                  setCheck(2)
+                  document.querySelector('.modal-box-content-form-left-block__tab:nth-child(1)').classList.remove('-active');
+                  document.querySelector('.modal-box-content-form-left-block__tab:nth-child(2)').classList.add('-active');
+                  document.querySelector('.modal-box-content-form-left-block__tab:nth-child(3)').classList.remove('-active');
+
+                }}>{t('user.3')}</p>
+                <p className="modal-box-content-form-left-block__tab" onClick={() => {
+                  setCheck(3)
+                  document.querySelector('.modal-box-content-form-left-block__tab:nth-child(1)').classList.remove('-active');
+                  document.querySelector('.modal-box-content-form-left-block__tab:nth-child(3)').classList.add('-active');
+                  document.querySelector('.modal-box-content-form-left-block__tab:nth-child(2)').classList.remove('-active');
+                }}>{t('user.4')}</p>
               </div>
             </div>
-            <TableForm carts={carts}/>
-            <UserForm submitHandler={submitHandler} user={user} setConfirm={setConfirm} handleChange={handleChange} confirm={confirm} />
+            {switchTab(checkTab)}
           </div>
         </div>
       </div>
