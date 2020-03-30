@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import MenuLogin from './menu_login'
 import MenuUser from './menu_user'
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserData } from '../../../action/action'
-
 
 const Header = (props) => {
 
-  const {user} = props
+  const { user } = props
 
   return (
     <React.Fragment>
@@ -39,7 +36,7 @@ const Header = (props) => {
               </ul>
             </div>
             <div className="menu__user">
-              { user ? <MenuUser user={user} /> : <MenuLogin />}
+              {user ? <MenuUser user={user} /> : <MenuLogin />}
             </div>
           </div>
         </div>

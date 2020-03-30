@@ -1,11 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next';
-import {formatter} from '../mixin/mixin'
+import { formatter } from '../mixin/mixin'
 
 
 const UserForm = (props) => {
 
-  const { user, submitHandler, handleChange, setConfirm, confirm } = props
+  const { user, submitHandler, handleChange, pass, setPass } = props
   const { t } = useTranslation();
 
 
@@ -30,12 +30,6 @@ const UserForm = (props) => {
           <div className="input-container"><input type="text" required="required" value={user.addrres} name="addrres" onChange={handleChange} /><label >{t('dashboard.form.7')}</label>
             <div className="bar"></div>
           </div>
-          <div className="input-container"><input type="password" required="required" value={user.password} name="password" onChange={handleChange} /><label >{t('dashboard.form.8')}</label>
-            <div className="bar"></div>
-          </div>
-          <div className="input-container"><input type="password" required="required" value={confirm} name="confirm" onChange={(e) => setConfirm(e.target.value)} /><label >{t('dashboard.form.9')}</label>
-            <div className="bar"></div>
-          </div>
           <div className="input-container"><input type="text" required="required"
             value={user.sumPro} name="sumPro" onChange={e => e.preventDefault()} /><label
             >{t('dashboard.form.11')}</label>
@@ -44,6 +38,9 @@ const UserForm = (props) => {
           <div className="input-container"><input type="text" required="required"
             value={formatter.format(user.sumPay) !== formatter.format(NaN) ? formatter.format(user.sumPay) : ""} name="sumPay" onChange={e => e.preventDefault()} /><label
             >{t('dashboard.form.12')}</label>
+            <div className="bar"></div>
+          </div>
+          <div className="input-container"><input type="password" required="required" value={pass} name="password" onChange={e => setPass(e.target.value)} /><label > Password</label>
             <div className="bar"></div>
           </div>
         </div>

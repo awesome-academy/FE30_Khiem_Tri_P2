@@ -13,9 +13,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { new_theme } from '../../database/datatext'
 import { addtoCart, updateOneCart, getUserCart } from '../../action/action'
 import { useTranslation } from 'react-i18next';
-import { checkInclude } from '../mixin/mixin'
+import { checkInclude, rate } from '../mixin/mixin'
 
-export const localUrl = window.location.protocol+"//"+window.location.host;
+export const localUrl = window.location.protocol + "//" + window.location.host;
 
 const HomePage = () => {
 
@@ -41,8 +41,7 @@ const HomePage = () => {
       else {
         dispatch(updateOneCart(item.id))
         dispatch(getUserCart(user.cart))
-        sessionStorage.setItem('userData', JSON.stringify(user))
-        const add = await updateUser(user)
+        await updateUser(user)
         alert(t('detail.update'))
       }
     }
@@ -55,18 +54,17 @@ const HomePage = () => {
     item.quantity = 1
     user.cart = [...user.cart, item]
     dispatch(addtoCart(item))
-    sessionStorage.setItem('userData', JSON.stringify(user))
-    const add = await updateUser(user)
+    await updateUser(user)
     alert(t('detail.addCart'))
   }
 
   useEffect(() => {
     const getProduct = async () => {
       const listProduct = await getData('products')
-      setHightlight(() => listProduct.sort((a, b) => b.bought - a.bought).slice(0, 6))
-      setNew(() => listProduct.sort(() => Math.random() - 0.5).slice(0, 3))
-      setLasest(() => listProduct.sort((a, b) => b.id - a.id).slice(0, 4))
-      setHot(() => listProduct.sort(() => Math.random() - 0.5).slice(0, 5))
+      setHot(() => listProduct.sort((a, b) => b.bought - a.bought).slice(0, listProduct.length))
+      setNew(() => listProduct.sort((a, b) => b.timeActive - a.timeActive).slice(0, listProduct.length))
+      setLasest(() => listProduct.sort((a, b) => b.id - a.id).slice(0, listProduct.length))
+      setHightlight(() => listProduct.sort((a, b) => rate(b.votes, b.countRate) - rate(a.votes, a.countRate)).slice(0, listProduct.length))
       setBool(true)
     }
     getProduct()
@@ -76,7 +74,7 @@ const HomePage = () => {
     return (
       <React.Fragment>
         <Slider />
-        <HightLight products={hightlightProduct} add={AddToCart} />
+        <HightLight items={hightlightProduct} add={AddToCart} />
         <New new_theme={new_theme} items={newProduct} add={AddToCart} />
         <FirstBanner />
         <Hot new_theme={new_theme} items={hotProduct} add={AddToCart} />
@@ -95,4 +93,3 @@ const HomePage = () => {
 }
 
 export default HomePage
-

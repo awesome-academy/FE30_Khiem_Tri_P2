@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const logo = require('./logo/logo.jpg')
 export const bank = [require('./bank/bank1.jpg'), require('./bank/bank2.jpg'), require('./bank/bank3.jpg'), require('./bank/bank4.jpg'), require('./bank/bank5.jpg'), require('./bank/bank6.jpg'), require('./bank/bank7.jpg'), require('./bank/bank8.jpg')]
 export const slider = require('./slide1.jpg')

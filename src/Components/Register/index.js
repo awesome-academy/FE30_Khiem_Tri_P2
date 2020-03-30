@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { BreadCrum } from '../mixin/mixin'
-import { useDispatch, useSelector } from 'react-redux'
-import { getUserData, getUserCart } from '../../action/action'
+import { useDispatch } from 'react-redux'
 import { getData, RegisUser } from '../../database/db'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
@@ -11,7 +10,6 @@ const Register = ({ history }) => {
 
   const { t } = useTranslation();
   const dispatch = useDispatch()
-  const [userData, setUserData] = useState(Object)
   const [newUser, setNewUser] = useState(Object)
 
   useEffect(() => {
@@ -49,8 +47,8 @@ const Register = ({ history }) => {
       newUser.role = 1
       newUser.cart = []
       setNewUser(newUser)
-      const regis = await RegisUser(newUser)
-      sessionStorage.setItem('userData', JSON.stringify(newUser))
+      await RegisUser(newUser)
+      sessionStorage.setItem('userData', JSON.stringify(newUser.username))
       window.location.pathname = ('/')
     }
   }
@@ -134,13 +132,13 @@ const Register = ({ history }) => {
 export default Register
 
 const checkPhone = (phone) => {
-  Boolean = true
+  let bool = true
   for (let index in phone) {
     let a = parseInt(phone[index])
     if (isNaN(a)) {
-      Boolean = false;
+      bool = false;
       break;
     }
   }
-  return Boolean
+  return bool
 }

@@ -1,6 +1,4 @@
-import React from 'react'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
 
 const url = "http://localhost:2020";
 
@@ -77,7 +75,7 @@ export const deleteUser = (user) => {
 
 export const deleteProduct = (product) => {
   return axios.delete(`${url}/products/${product.id}`)
-    .then(res => {})
+    .then(res => { })
     .catch(error => window.location.pathname = ('/error'))
 }
 
@@ -107,6 +105,6 @@ export const updateCart = (item) => {
 
 export const addNewProduct = (data) => {
   return axios.post(`${url}/products`, data)
-    .then(res => {})
+    .then(res => { })
     .catch(error => window.location.pathname = ('/error'))
 }

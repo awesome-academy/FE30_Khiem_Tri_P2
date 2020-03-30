@@ -27,7 +27,7 @@ const DetailPro = (props) => {
 
   const handleChange = (e) => {
     const target = e.target;
-    const { name, value } = target;
+    const { value } = target;
     setAmount(value);
   }
 
@@ -43,8 +43,7 @@ const DetailPro = (props) => {
       else {
         user.cart = cart.map((pro) => pro.id === item.id ? { ...pro, quantity: parseInt(pro.quantity) + parseInt(amount) } : pro)
         dispatch(UpdateDetailQuantity(item.id, amount))
-        sessionStorage.setItem('userData', JSON.stringify(user))
-        const add = await updateUser(user)
+        await updateUser(user)
         alert(t('detail.update'))
 
       }
@@ -58,8 +57,7 @@ const DetailPro = (props) => {
     item.quantity = amount
     user.cart = [...user.cart, item]
     dispatch(addtoCart(item))
-    sessionStorage.setItem('userData', JSON.stringify(user))
-    const add = await updateUser(user)
+    await updateUser(user)
     alert(t('detail.addCart'))
   }
 
@@ -166,7 +164,7 @@ const DetailPro = (props) => {
               >{t('button.buyNow')}</Link>
             </div>
             <div className="share">
-              <FacebookShareButton url={url + `/detail/${item.id}`}><FacebookIcon size={39}/></FacebookShareButton>
+              <FacebookShareButton url={url + `/detail/${item.id}`}><FacebookIcon size={39} /></FacebookShareButton>
             </div>
           </div>
         </div>

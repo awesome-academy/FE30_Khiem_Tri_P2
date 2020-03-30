@@ -11,13 +11,23 @@ const MainMenu = (props) => {
   const { t } = useTranslation();
   const cart = useSelector(state => state.cart)
   const [length, setLength] = useState(0)
+  const [display, setDispaly] = useState(false)
 
   useEffect(() => {
     if (cart !== null) {
       setLength(Object.keys(cart).length)
     }
+    if (display) {
+      document.querySelector('.menu__hide .menu__ul').style.display = 'block';
+    }
+    else {
+      document.querySelector('.menu__hide .menu__ul').style.display = 'none';
+    }
   })
 
+  const displayMenu = () => {
+    setDispaly(!display)
+  }
 
   return (
     <React.Fragment>
@@ -37,22 +47,22 @@ const MainMenu = (props) => {
               </div>
             </div>
             <div className="menu__hide">
-              <div className="nav__menu">
+              <div className="nav__menu" onClick={displayMenu}>
                 <div className="span__menu">
                   <span />
                   <span />
                   <span />
-                  <div className="menu__ul">
-                    <ul>
-                      <li><a href="#">{t('header.menu.1')}</a></li>
-                      <li><a href="#">{t('header.menu.2')}</a></li>
-                      <li><Link to="/list">{t('header.menu.3')}</Link></li>
-                      <li><a href="#">{t('header.menu.4')}</a></li>
-                      <li><a href="#">{t('header.menu.5')}</a></li>
-                      <li><a href="#">{t('header.menu.6')}</a></li>
-                    </ul>
-                  </div>
                 </div>
+              </div>
+              <div className="menu__ul">
+                <ul>
+                  <li><a href="#">{t('header.menu.1')}</a></li>
+                  <li><a href="#">{t('header.menu.2')}</a></li>
+                  <li><Link to="/list">{t('header.menu.3')}</Link></li>
+                  <li><a href="#">{t('header.menu.4')}</a></li>
+                  <li><a href="#">{t('header.menu.5')}</a></li>
+                  <li><a href="#">{t('header.menu.6')}</a></li>
+                </ul>
               </div>
             </div>
             <div className="menu__basket">

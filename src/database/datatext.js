@@ -5,7 +5,7 @@ export const about__service = [{ text: "Hệ thống của hàng" }, { text: "H�
 export const about_info = [{ text: "Tin tức mới nhất" }, { text: "Tin tức khuyến mãi" }, { text: "Tuyển dụng, đãi ngộ" }, { text: "Download tài liệu" }, { text: "Chương trình đối tác" }, { text: "Nhà phát triển ứng dụng" }]
 export const about_connect = [{ icon: "fab fa-facebook-f", text: "Facebook" }, { icon: "fab fa-twitter", text: "Twitter" }, { icon: "fab fa-google-plus", text: "Google" }, { icon: "fab fa-skype", text: "Skype" }, { icon: "fab fa-instagram", text: "Instagram" }]
 
-export const list_item = [{ text: "DANH MỤC SẢN PHẨM", icon: "fas fa-bars" }, { text: "Máy quét Canon3D", icon: "fa fa-th-large" }, { text: "Máy quét Canon3D", icon: "fas fa-bars" }, { text: "Máy quét Canon3D", icon: "fas fa-bars" }, { text: "Máy quét Canon3D", icon: "fas fa-bars" }, { text: "Máy quét Canon3D", icon: "fas fa-bars" }, { text: "Máy quét Canon3D", icon: "fas fa-bars" }, { text: "Máy quét Canon3D", icon: "fas fa-bars" }, { text: "Máy quét Canon3D", icon: "fas fa-bars" }, { text: "Máy quét Canon3D", icon: "fas fa-bars" }, , { text: "Máy quét Canon3D", icon: "fas fa-bars" }]
+export const list_item = [{ text: "DANH MỤC SẢN PHẨM", icon: "fas fa-bars" }, { text: "Máy quét Canon3D", icon: "fa fa-th-large" }, { text: "Máy quét Canon3D", icon: "fas fa-bars" }, { text: "Máy quét Canon3D", icon: "fas fa-bars" }, { text: "Máy quét Canon3D", icon: "fas fa-bars" }, { text: "Máy quét Canon3D", icon: "fas fa-bars" }, { text: "Máy quét Canon3D", icon: "fas fa-bars" }, { text: "Máy quét Canon3D", icon: "fas fa-bars" }, { text: "Máy quét Canon3D", icon: "fas fa-bars" }, { text: "Máy quét Canon3D", icon: "fas fa-bars" }, { text: "Máy quét Canon3D", icon: "fas fa-bars" }]
 
 export const list_money = [{ text: "TÌM THEO GIÁ TIỀN", icon: "fas fa-dollar-sign" }, { text: "0 - 200.000 Đ  (45)", icon: "fas fa-dollar-sign" }, { text: "200.000 Đ - 500.000 Đ (32)", icon: "fas fa-dollar-sign" }, { text: "500.000 Đ - 1000.000 Đ (27)", icon: "fas fa-dollar-sign" }, { text: "1000.000 Đ - 2000.000 Đ (16)", icon: "fas fa-dollar-sign" }, { text: "Trên 2000.000 Đ (9)", icon: "fas fa-dollar-sign" }]
 
@@ -26,7 +26,6 @@ export const banner = [{ name: "DEMIXI", img: "b2", info: "MÁY HÀN XÌ CHUYÊN
 export const dashboard_text = [{ text1: "Total Orders", text2: "Last year expenses" }, { text1: "Customer", text2: "Total customer" }, { text1: "Total Products", text2: "Products sold" }, { text1: "Revenue", text2: "Total revenue" }]
 
 export const dashboard_chart = {
-  "cate": { 1: { text: "drill", num: 0 }, 2: { text: "hammer", num: 0 }, 3: { text: "saw", num: 0 } },
   "theme": { 1: "light2" },
   "type": { 1: "line", 2: "pie", 3: "column" },
   "title": { 1: "Product", 2: "Price", 3: "Bought", 4: "Total pay", 5: "Total product" },
@@ -85,7 +84,6 @@ export const optionsUser = (tit, Data, Data1) => {
       labelFontColor: dashboard_chart.color[3],
       tickColor: dashboard_chart.color[3],
       indexLabelPlacement: dashboard_chart.pos[1],
-      includeZero: false
     },
     axisY2: {
       title: dashboard_chart.type[5],

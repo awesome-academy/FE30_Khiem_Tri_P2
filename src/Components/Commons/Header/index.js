@@ -15,15 +15,19 @@ const MenuMaster = () => {
 
   useEffect(() => {
     if (SaveUser) {
-      dispatch(getUserData(SaveUser))
-      dispatch(getUserCart(SaveUser.cart))
-      setBool(true)
+      const get = async () => {
+        const u = await getByUser(SaveUser)
+        dispatch(getUserData(u))
+        dispatch(getUserCart(u.cart))
+        setBool(true)
+      }
+      get()
     }
     else {
       dispatch(getProducts(null))
       dispatch(getUserData(null))
     }
-  }, [dispatch]);
+  }, [dispatch, SaveUser]);
 
   return (
     <React.Fragment>

@@ -14,8 +14,12 @@
     }
   }
   .item__img {
-    margin: auto 0px;;
+    margin: auto;
     text-align: center;
+    height: 195px;
+    img{
+      max-width: 229px;
+    }
   }
   .item__info {
     text-align: center;

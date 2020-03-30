@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BreadCrum } from '../mixin/mixin'
 import CartHeader from './cartHeader'
 import CartItem from './CartItem'

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom'
 
 
-export const Tittle_part = (props) => {
+export const TittlePart = (props) => {
   const { text } = props
   return (
     <div className="title__text">
@@ -15,13 +15,14 @@ export const Tittle_part = (props) => {
   )
 }
 
-export const Togle = () => {
+export const Togle = (props) => {
+  const { up, down } = props
   return (
     <div className="title__togle">
-      <div className="togle -left">
+      <div className="togle -left" style={{ cursor: 'pointer' }} onClick={up}>
         <i className="fa fa-caret-right" />
       </div>
-      <div className="togle -right">
+      <div className="togle -right" style={{ cursor: 'pointer' }} onClick={down}>
         <i className="fa fa-caret-left" />
       </div>
     </div>
@@ -36,7 +37,7 @@ export const ListTheme = (props) => {
         if (index === 0) {
           return (
             <li className="-active" key={index}>
-              <a href="#">
+              <a>
                 <i className={item.icon} />
                 {item.text}
               </a>
@@ -47,7 +48,7 @@ export const ListTheme = (props) => {
         else {
           return (
             <li key={index}>
-              <a href="#">
+              <a>
                 <i className="fa fa-th-large"></i>
                 {item.text}
               </a>
@@ -69,7 +70,7 @@ export const ListColor = (props) => {
       {items.map((item, index) => {
         if (index === 0) return (
           <li className="-active" key={index}>
-            <a href="#">
+            <a>
               <i className={item.icon} />
               {item.text}
             </a>
@@ -78,7 +79,7 @@ export const ListColor = (props) => {
         )
         else return (
           <li key={index}>
-            <a href="#">
+            <a>
               <span style={{ backgroundColor: item.color }} />
               {item.text}
             </a>
@@ -286,4 +287,57 @@ export const ProductLast = (props) => {
       }
     </React.Fragment>
   )
+}
+
+export const upPage = (num1, num2, setNum1, setNum2, items, num) => {
+  if (window.innerWidth > '768') {
+    if (num1 + num < items.length) {
+      setNum1(num1 + num)
+      setNum2(num2 + num)
+    }
+    else {
+      setNum1(0)
+      setNum2(num)
+    }
+  }
+  else {
+    if (num1 + 1 < items.length) {
+      setNum1(num1 + 1)
+      setNum2(num2 + 1)
+    }
+    else {
+      setNum1(0)
+      setNum2(num)
+    }
+  }
+
+}
+export const downPage = (num1, num2, setNum1, setNum2, items, num) => {
+  if (window.innerWidth > '768') {
+    if (num1 - num > -1) {
+      setNum1(num1 - num)
+      setNum2(num2 - num)
+    }
+    else {
+      setNum1((parseInt(items.length / num) + 1) * num - num)
+      setNum2((parseInt(items.length / num) + 1) * num)
+    }
+  }
+  else if (num1 - 1 > -1) {
+    setNum1(num1 - num)
+    setNum2(num2 - num)
+  }
+  else {
+    setNum1((parseInt(items.length / num) + 1) * num - num)
+    setNum2((parseInt(items.length / num) + 1) * num)
+  }
+}
+
+export const rate = (vote, count) => {
+  if (vote === 0) {
+    return 0
+  }
+  else {
+    return count / vote
+  }
 }

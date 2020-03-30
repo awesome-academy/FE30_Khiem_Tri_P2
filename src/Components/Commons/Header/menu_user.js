@@ -1,15 +1,12 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserData } from '../../../action/action'
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import ModalBox from '../Modal';
 
-
-
-const MenuUser = ({ history },props) => {
+const MenuUser = (props) => {
 
   const { t } = useTranslation();
-  const user = useSelector(state=>state.user)
+  const user = useSelector(state => state.user)
 
   const showModal = (e) => {
     e.preventDefault();
@@ -17,7 +14,7 @@ const MenuUser = ({ history },props) => {
     document.querySelector('.modal-box').style.zIndex = 11;
     document.querySelector('.modal-box').style.opacity = 1;
   }
-  
+
   return (
     <React.Fragment>
       <ul>
@@ -29,7 +26,7 @@ const MenuUser = ({ history },props) => {
           }}>{t('button.logout')}</a>
         </li>
         <li className="-left -usernot">
-          <a href="#" onClick={showModal}>{t(`header.hello`)+ user.name}</a>
+          <a href="#" onClick={showModal}>{t(`header.hello`) + user.name}</a>
         </li>
       </ul>
       <ModalBox user={user}></ModalBox>

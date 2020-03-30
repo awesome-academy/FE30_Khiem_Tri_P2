@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { BreadCrum, ListTheme, ListColor, ListImg, checkInclude, displayStar } from '../mixin/mixin'
+import { BreadCrum, ListTheme, checkInclude } from '../mixin/mixin'
 import { DropdownList } from 'react-widgets'
 import List from './List'
 import Grid from './Grid'
 import { useDispatch, useSelector } from 'react-redux';
-import { list_item, list_money, list_color, list_img } from '../../database/datatext'
+import { list_item, list_money } from '../../database/datatext'
 import { getData, updateUser } from '../../database/db'
 import { getSort, getProducts, addtoCart, updateOneCart, getUserCart, getCate } from '../../action/action'
 import { useTranslation } from 'react-i18next';
+import FootList from './footlist'
 
 
 const ListGrid = () => {
@@ -23,6 +24,8 @@ const ListGrid = () => {
   const { t } = useTranslation();
   const user = useSelector(state => state.user)
   const cart = useSelector(state => state.cart)
+  const [num1, setNum1] = useState(0)
+  const [num2, setNum2] = useState(9)
 
   const AddToCart = async (e, item) => {
     if (JSON.parse(sessionStorage.getItem('userData'))) {
@@ -36,8 +39,7 @@ const ListGrid = () => {
       else {
         dispatch(updateOneCart(item.id))
         dispatch(getUserCart(user.cart))
-        sessionStorage.setItem('userData', JSON.stringify(user))
-        const add = await updateUser(user)
+        await updateUser(user)
         alert(t('detail.update'))
       }
     }
@@ -50,9 +52,24 @@ const ListGrid = () => {
     item.quantity = 1
     user.cart = [...user.cart, item]
     dispatch(addtoCart(item))
-    sessionStorage.setItem('userData', JSON.stringify(user))
-    const add = await updateUser(user)
+    await updateUser(user)
     alert(t('detail.addCart'))
+  }
+
+  const lastPage = () => {
+    let num = parseInt(products.length / dropAmount)
+    setNum1(dropAmount * num)
+    setNum2(dropAmount * num + 1)
+  }
+
+  const firstPage = () => {
+    setNum1(0)
+    setNum2(dropAmount)
+  }
+
+  const changePage = (num) => {
+    setNum1((num - 1) * dropAmount)
+    setNum2(dropAmount * num)
   }
 
   useEffect(() => {
@@ -77,14 +94,12 @@ const ListGrid = () => {
               <div className="left__item" >
                 <ListTheme items={list_item} />
                 <ListTheme items={list_money} />
-                <ListColor items={list_color} />
-                <ListImg items={list_img} />
               </div>
               <div className="right__item">
                 <div className="list__product" >
                   <div className="list__header">
                     <div className="order__style">
-                      <p>Sắp xếp theo:</p>
+                      <p>{t('grid.orderBy')}</p>
                       <DropdownList data={list__Dropitem} defaultValue={sortBy} style={{ width: '165px' }}
                         onChange={(value) => {
                           dispatch(getSort(value))
@@ -92,10 +107,12 @@ const ListGrid = () => {
                       />
                     </div>
                     <div className="order__style -small">
-                      <p>Show:</p>
+                      <p>{t('grid.show')}</p>
                       <DropdownList data={product__DropItem} value={dropAmount} style={{ width: '90px' }}
                         onChange={(value) => {
                           setDropAmount(value)
+                          setNum1(0)
+                          setNum2(value)
                         }} />
                     </div>
                     <div className="order__button">
@@ -121,7 +138,9 @@ const ListGrid = () => {
                       </span>
                     </div>
                   </div>
-                  {change ? <List items={sort(products, sortBy).slice(0, dropAmount)} add={AddToCart} /> : <Grid items={sort(products, sortBy).slice(0, dropAmount)} add={AddToCart} />}
+                  {change ? <List items={sort(products, sortBy).slice(num1, num2)} add={AddToCart} /> : <Grid items={sort(products, sortBy).slice(num1, num2)} add={AddToCart} />}
+                  <FootList page={parseInt(products.length / dropAmount) + 1} lastPage={lastPage} firstPage={firstPage}
+                    changePage={changePage} />
                 </div>
               </div>
             </div>

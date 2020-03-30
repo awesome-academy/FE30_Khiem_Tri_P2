@@ -1,14 +1,9 @@
-import React, { useState } from 'react';
-import * as img__Arr from '../../img/index'
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom'
-import { formatter, ProductItem } from '../mixin/mixin'
-
+import React from 'react';
+import { ProductItem } from '../mixin/mixin'
 
 const Grid = (props) => {
 
   const { items, add } = props
-  const { t } = useTranslation();
 
   return (
     <React.Fragment>

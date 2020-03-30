@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Info from './Info'
 import Comment from './comment'
 import { useTranslation } from 'react-i18next';

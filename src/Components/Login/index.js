@@ -1,42 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import { BreadCrum } from '../mixin/mixin'
 import { getData } from '../../database/db'
-import { useDispatch, useSelector } from 'react-redux'
-import { getUserData, getUserCart } from '../../action/action'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 
 
-const Login = ({ history }) => {
+const Login = () => {
 
   const { t } = useTranslation();
   const dispatch = useDispatch()
   const [user, setUser] = useState(Object)
-  const [userData, setUserData] = useState(Object)
-
 
   useEffect(() => {
 
   }, [dispatch])
 
-
   const handleLogin = (e) => {
     e.preventDefault();
     const GetData = async () => {
       const dataUser = await getData('user')
-      setUserData(dataUser)
       const findUser = dataUser.find(v => v.username === user.username)
       if (!findUser) {
         alert(t('login.warning.empty'))
       }
       else if (findUser.role === 0 && findUser.password === user.password) {
         alert(t('admin'))
-        sessionStorage.setItem('userData', JSON.stringify(findUser))
+        sessionStorage.setItem('userData', JSON.stringify(findUser.username))
         window.location.pathname = "/admin/dashboard"
       }
       else if (findUser.role === 1 && findUser.password === user.password) {
         alert(t('login.warning.success'))
-        sessionStorage.setItem('userData', JSON.stringify(findUser))
+        sessionStorage.setItem('userData', JSON.stringify(findUser.username))
         window.location.pathname = ('/')
       }
       else {

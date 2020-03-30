@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Tittle_part, Togle, ListTheme, formatter, displayStar } from '../mixin/mixin'
+import React, { useState } from 'react';
+import { TittlePart, Togle, ListTheme, upPage, downPage } from '../mixin/mixin'
 import { item_theme } from '../../database/datatext'
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { ProductItem } from '../mixin/mixin'
 
 
-const HightLight = (props, { history }) => {
+const HightLight = (props) => {
 
   const { t } = useTranslation();
-  const { products, add } = props
-  const dispatch = useDispatch()
+  const { items, add } = props
+  const [num1, setNum1] = useState(0)
+  const [num2, setNum2] = useState(6)
+
 
   return (
     <React.Fragment>
@@ -18,8 +19,8 @@ const HightLight = (props, { history }) => {
         <div className="container">
           <div className="row">
             <div className="highltghts__title">
-              <Tittle_part text={t('common.highlight')} />
-              <Togle></Togle>
+              <TittlePart text={t('common.highlight')} />
+              <Togle up={() => upPage(num1, num2, setNum1, setNum2, items, 6)} down={() => downPage(num1, num2, setNum1, setNum2, items, 6)}></Togle>
             </div>
           </div>
           <div className="row">
@@ -29,7 +30,7 @@ const HightLight = (props, { history }) => {
               </div>
               <div className="right__item">
                 <div className="list__product">
-                  <ProductItem items={products} add={add} />
+                  <ProductItem items={items.slice(num1, num2)} add={add} />
                 </div>
               </div>
             </div>
